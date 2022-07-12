@@ -1,0 +1,26 @@
+.sun {
+    display: inline-block;
+    background: none;
+    border: none;
+    svg {
+        fill: gold;
+    }
+    &:hover {
+        cursor: pointer;
+        svg {
+            fill: rgb(164, 137, 2);
+        }
+    }
+}
+.moon {
+    background: none;
+    border: none;
+
+    display: inline-block;
+    &:hover {
+        cursor: pointer;
+        svg {
+            fill: rgb(217, 216, 207);
+        }
+    }
+}

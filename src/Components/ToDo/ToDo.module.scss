@@ -1,0 +1,80 @@
+.todo {
+    border-radius: 10px;
+    background: transparent;
+    color: var(--main-color);
+    box-shadow: inset -1px 3px 4px black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    border-style: none;
+    padding: 14px;
+    margin: 10px 0;
+    max-width: 700px;
+    animation: myAnim 1s ease 0s 1 normal forwards;
+    width: 100%;
+    transition-duration: 0.5s;
+    &:hover {
+        box-shadow: inset 0px 0px 0px black;
+        background: rgba(255, 255, 255, 0.096);
+    }
+    button {
+        background: none;
+        border: none;
+
+        svg {
+            fill: var(--svg-color);
+            &:hover {
+                fill: rgb(181, 20, 20);
+            }
+        }
+    }
+    .done {
+        margin-right: 10px;
+        svg {
+            &:hover {
+                fill: rgb(158, 129, 129);
+            }
+        }
+    }
+    .edit {
+        svg {
+            &:hover {
+                fill: rgb(129, 158, 132);
+            }
+        }
+        margin-left: auto;
+    }
+    p {
+        margin-right: 10px;
+        font-size: 17px;
+    }
+}
+@keyframes myAnim {
+    0% {
+        opacity: 0;
+        transform: translateX(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.editInput {
+    background: linear-gradient(90deg, rgba(255, 250, 250, 0.212) 0%, rgba(224, 220, 220, 0.275) 43%);
+    width: 100%;
+    padding: 5px;
+    color: var(--main-color);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 10px;
+
+    resize: none;
+    transition: 0.5s;
+    box-shadow: inset -0px 1px 1px black;
+    &:hover,
+    &:focus {
+        box-shadow: inset -1px 3px 4px black;
+    }
+}

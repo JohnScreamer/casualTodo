@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+    font-size: 30px;
+}
+.SkeletonWrapper {
+    display: flex;
+    flex-direction: column;
+    span {
+        height: 50px;
+    }
+}

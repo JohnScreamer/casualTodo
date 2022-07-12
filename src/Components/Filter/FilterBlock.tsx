@@ -1,0 +1,80 @@
+import QueryString from "qs";
+import { useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FilterObject, startDefaultUrl } from "../../Coomon/ObjectPropValid";
+import { useAppDispatch, useAppSelector } from "../../Hooks/hooks";
+import s from "./FilterBlock.module.scss";
+import {
+    setAllFilters,
+    setByText,
+    setByTime,
+    setCurrentPage,
+    setIsDone,
+    TypeByTime,
+    TypeIsDone,
+} from "../../Redux/Slice/FilterReducer";
+import { firstRenderFetchAllTodo } from "../../Redux/Slice/ToDoReducer";
+import { selectAllTodo, selectFiltered } from "../../Selectors/Selectors";
+import CustomSelect from "../CustomSelect/CustomSelect";
+import { ByIsDone, ByTime } from "../../Constants/SelectConstants";
+
+const FilterBlock = () => {
+    const { byText, byTime, isDone } = useAppSelector(selectFiltered);
+    const filters = useAppSelector(selectFiltered);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const firstRenderDone = useRef(false);
+
+    useEffect(() => {
+        if (firstRenderDone.current) {
+            dispatch(firstRenderFetchAllTodo(FilterObject(filters)));
+            dispatch(setCurrentPage(1));
+            navigate("?" + QueryString.stringify(FilterObject(filters)));
+        }
+    }, [byText, byTime, isDone, firstRenderDone.current]);
+
+    useEffect(() => {
+        const urlObj = QueryString.parse(location.search.substring(1));
+        dispatch(setAllFilters(startDefaultUrl(urlObj)));
+        firstRenderDone.current = true;
+    }, []);
+    const handlerTextSearch = (value: string) => {
+        dispatch(setByText(value));
+    };
+
+    const handlerIsDone = (value: TypeIsDone) => {
+        dispatch(setIsDone(value));
+    };
+    const handlerByTime = (value: TypeByTime) => {
+        dispatch(setByTime(value));
+    };
+    return (
+        <div>
+            <label htmlFor="textFilter">Search:</label>
+            <input
+                className={s.input}
+                type="text"
+                id="textFilter"
+                value={byText ? byText : ""}
+                onChange={(e) => handlerTextSearch(e.target.value)}
+            />
+            <div className={s.selectWrapper}>
+                <CustomSelect
+                    option={ByTime}
+                    fn={handlerByTime}
+                    defaultValue={byTime}
+                    labelName="Post time"
+                />
+                <CustomSelect
+                    option={ByIsDone}
+                    fn={handlerIsDone}
+                    defaultValue={isDone ? isDone : " "}
+                    labelName="Complete"
+                />
+            </div>
+        </div>
+    );
+};
+
+export default FilterBlock;

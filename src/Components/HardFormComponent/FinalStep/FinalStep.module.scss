@@ -1,0 +1,13 @@
+.formWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h4 {
+        font-size: 20px;
+        font-weight: 900;
+        span {
+            font-size: 16px;
+        }
+    }
+}
