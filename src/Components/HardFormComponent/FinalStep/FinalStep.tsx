@@ -15,7 +15,6 @@ const FinalStep: FC<TypeFinalStep> = ({ setForm, resetField }) => {
     const dispatch = useAppDispatch();
     const form = useAppSelector(selectForm);
     const linkRef = useRef(null);
-    const navigate = useNavigate();
     const handlerResetForm = () => {
         dispatch(resetForm());
         setForm(defaultForm);

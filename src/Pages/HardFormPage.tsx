@@ -18,6 +18,8 @@ import {
     useNavigate,
 } from "react-router-dom";
 import FinalStep from "../Components/HardFormComponent/FinalStep/FinalStep";
+import HorizontalLinearStepper from "../Components/HardFormComponent/Stepper/Stepper";
+import HorizontalLabelPositionBelowStepper from "../Components/HardFormComponent/Stepper/Stepper";
 
 const HardFormPage = () => {
     const initForm = useAppSelector(selectForm);
@@ -43,7 +45,6 @@ const HardFormPage = () => {
     location.state = location.state ? location.state : 0;
 
     let currentStep = location.state;
-    // const stepTo = (num: number) => {};
     const stepTo = (num: number) => {
         //@ts-ignore
         navigate("", { state: num });
@@ -115,17 +116,14 @@ const HardFormPage = () => {
                             />
                         </>
                     )}
-                    {/* <Stepper activeStep={state.activeStep}>
-                        {TABS.map(({ title }) => {
-                            return (
-                                <Step key={title}>
-                                    <StepLabel>{title}</StepLabel>
-                                </Step>
-                            );
-                        })}
-                    </Stepper> */}
+
                     {currentStep === 3 && (
                         <FinalStep resetField={resetField} setForm={setForm} />
+                    )}
+                    {(currentStep as number) < 3 && (
+                        <HorizontalLabelPositionBelowStepper
+                            step={currentStep as number}
+                        />
                     )}
                 </form>
             </div>
