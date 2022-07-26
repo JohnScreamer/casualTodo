@@ -1,5 +1,5 @@
 import QueryString from "qs";
-import { useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FilterObject, startDefaultUrl } from "../../Coomon/ObjectPropValid";
 import { useAppDispatch, useAppSelector } from "../../Hooks/hooks";
@@ -14,15 +14,16 @@ import {
     TypeIsDone,
 } from "../../Redux/Slice/FilterReducer";
 import { firstRenderFetchAllTodo } from "../../Redux/Slice/ToDoReducer";
-import { selectAllTodo, selectFiltered } from "../../Selectors/Selectors";
+import { selectFiltered } from "../../Selectors/Selectors";
 import CustomSelect from "../CustomSelect/CustomSelect";
-import { ByIsDone, ByTime } from "../../Constants/SelectConstants";
+import { useTranslation } from "react-i18next";
 
 const FilterBlock = () => {
     const { byText, byTime, isDone } = useAppSelector(selectFiltered);
     const filters = useAppSelector(selectFiltered);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
     const location = useLocation();
     const firstRenderDone = useRef(false);
 
@@ -49,9 +50,19 @@ const FilterBlock = () => {
     const handlerByTime = (value: TypeByTime) => {
         dispatch(setByTime(value));
     };
+    const { t } = useTranslation();
+    const ByIsDone = [
+        { name: t("allDone"), value: "true" },
+        { name: t("allNotDone"), value: "false" },
+        { name: t("allTodo"), value: " " },
+    ];
+    const ByTime = [
+        { name: t("newFirst"), value: "desc" },
+        { name: t("oldFirst"), value: "asc" },
+    ];
     return (
         <div>
-            <label htmlFor="textFilter">Search:</label>
+            <label htmlFor="textFilter">{t("search")}:</label>
             <input
                 className={s.input}
                 type="text"
@@ -64,17 +75,17 @@ const FilterBlock = () => {
                     option={ByTime}
                     fn={handlerByTime}
                     defaultValue={byTime}
-                    labelName="Post time"
+                    labelName={t("postTime")}
                 />
                 <CustomSelect
                     option={ByIsDone}
                     fn={handlerIsDone}
                     defaultValue={isDone ? isDone : " "}
-                    labelName="Complete"
+                    labelName={t("complete")}
                 />
             </div>
         </div>
     );
 };
 
-export default FilterBlock;
+export default memo(FilterBlock);

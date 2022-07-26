@@ -4,7 +4,7 @@ import RadioButtonUncheckedSharpIcon from "@mui/icons-material/RadioButtonUnchec
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import EditIcon from "@mui/icons-material/Edit";
-import { useAppDispatch, useAppSelector } from "../../Hooks/hooks";
+import { useAppDispatch } from "../../Hooks/hooks";
 import {
     FetchDeleteTodo,
     FetchStatusTodo,
@@ -12,7 +12,6 @@ import {
     ITodo,
 } from "../../Redux/Slice/ToDoReducer";
 import s from "./ToDo.module.scss";
-import { selectFirstLoad } from "../../Selectors/Selectors";
 type ToDoCard = {
     todo: ITodo;
 };

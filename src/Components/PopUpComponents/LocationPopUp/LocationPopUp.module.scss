@@ -1,0 +1,24 @@
+.btnMore {
+    background: linear-gradient(0deg, rgba(34, 193, 195, 0.4416141457) 0%, rgba(45, 253, 67, 0.3547794118) 100%);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: auto;
+    border-radius: 10px;
+    color: var(--main-color);
+    box-shadow: inset 2px 5px 5px black;
+    transition: 0.5s;
+    &:hover {
+        background: linear-gradient(0deg, rgba(15, 183, 189, 0.631) 0%, rgba(45, 253, 66, 0.363) 100%);
+        box-shadow: inset 0px 0px 0px black;
+    }
+}
+.locationWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    div {
+        padding: 5px;
+    }
+}

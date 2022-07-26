@@ -1,9 +1,6 @@
-import axios from "axios";
-import { log } from "console";
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { memo } from "react";
+import { useTranslation } from "react-i18next";
 import FilterBlock from "../Components/Filter/FilterBlock";
-
 import PaginationControlled from "../Components/Pagination/Pagination";
 import ToDoForm from "../Components/ToDoForm/ToDoForm";
 import ToDoList from "../Components/ToDoList/ToDoList";
@@ -11,10 +8,9 @@ import { useAppSelector } from "../Hooks/hooks";
 import { selectError } from "../Selectors/Selectors";
 
 const TodoPage = () => {
-    const location = useLocation();
-    console.log(location);
     const error = useAppSelector(selectError);
-
+    const { t } = useTranslation();
+    document.cookie;
     return (
         <main>
             <div className="filterBlock">
@@ -26,7 +22,7 @@ const TodoPage = () => {
                 <ToDoForm />
                 {error && (
                     <span style={{ color: "red", fontSize: "20px" }}>
-                        Some Error.{error}
+                        {t("someError")}.{error}
                     </span>
                 )}
             </div>
@@ -34,4 +30,4 @@ const TodoPage = () => {
     );
 };
 
-export default TodoPage;
+export default memo(TodoPage);

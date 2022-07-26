@@ -2,6 +2,7 @@ import { FC, useRef, useState } from "react";
 import CustomInput from "../CustomInput/CustomInput";
 import s from "./LogInStep.module.scss";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 interface IPersonInfoStep {
     setForm: (state: any) => void;
     password: string;
@@ -21,10 +22,11 @@ const LogInStep: FC<IPersonInfoStep> = ({
     setStep,
 }) => {
     const isDisabled = !!Object.keys(errors).length;
-    const navigate = useNavigate();
+    const { t } = useTranslation();
     const validTest = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const isValid = await trigger();
+        console.log(isValid);
 
         if (isValid) {
             setStep(1);
@@ -39,11 +41,11 @@ const LogInStep: FC<IPersonInfoStep> = ({
                     ...register("login", {
                         required: {
                             value: true,
-                            message: "Required field",
+                            message: t("requiredField"),
                         },
                         minLength: {
                             value: 4,
-                            message: "min length 4",
+                            message: `${t("minLength")} 4`,
                         },
                     }),
                 }}
@@ -51,7 +53,7 @@ const LogInStep: FC<IPersonInfoStep> = ({
                 name="login"
                 setValue={setForm}
                 value={login}
-                labelName="Login"
+                labelName={t("login")}
             />
             <span></span>
             <CustomInput
@@ -59,11 +61,11 @@ const LogInStep: FC<IPersonInfoStep> = ({
                     ...register("password", {
                         required: {
                             value: true,
-                            message: "Required field",
+                            message: t("requiredField"),
                         },
                         minLength: {
                             value: 8,
-                            message: "min length 8",
+                            message: `${t("minLength")} 8`,
                         },
                         pattern: {
                             value: /(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/,
@@ -77,7 +79,7 @@ const LogInStep: FC<IPersonInfoStep> = ({
                 name="password"
                 setValue={setForm}
                 value={password}
-                labelName="Password"
+                labelName={t("password")}
             />
 
             {/* <Select
@@ -90,7 +92,7 @@ const LogInStep: FC<IPersonInfoStep> = ({
                 className="nextStepBtn"
                 onClick={validTest}
             >
-                Next step
+                {t("nextStep")}
             </button>
         </div>
     );

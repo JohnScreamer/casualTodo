@@ -12,6 +12,7 @@ type CustomInputType = {
         message: string;
     };
 };
+interface cc extends React.HTMLProps<HTMLInputElement> {}
 
 const CustomInput: FC<CustomInputType> = ({
     labelName,

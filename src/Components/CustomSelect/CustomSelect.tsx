@@ -6,7 +6,7 @@ import { Controller } from "react-hook-form";
 import { FormType } from "../../Redux/Slice/HardForm";
 
 interface ICustomSelect {
-    defaultValue: string;
+    defaultValue?: string;
     fn: (data: any) => void;
     option: Array<any>;
     labelName?: string;
@@ -37,7 +37,6 @@ const CustomSelect: FC<ICustomSelect> = ({
                     name="gender"
                     control={control}
                     rules={{ required: true }}
-                    defaultValue={defaultValue ? defaultValue : ""}
                     render={({ field: { onChange, value } }) => (
                         <Select
                             labelId="demo-simple-select-filled-label"
@@ -72,7 +71,7 @@ const CustomSelect: FC<ICustomSelect> = ({
                     value={defaultValue}
                     onChange={handleChange}
                     disableUnderline
-                    defaultValue={defaultValue ? defaultValue : "default"}
+                    defaultValue={defaultValue ? defaultValue : ""}
                 >
                     <MenuItem disabled value="">
                         <em>Placeholder</em>

@@ -1,30 +1,24 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ExtraInformationStep from "../Components/HardFormComponent/ExtraInformationStep/ExtraInformationStep";
 import LogInStep from "../Components/HardFormComponent/LogInStep/LogInStep";
 import PersonInfoStep from "../Components/HardFormComponent/PersonInfoStep/PersonInfoStep";
 import { useAppDispatch, useAppSelector } from "../Hooks/hooks";
 import { editForm } from "../Redux/Slice/HardForm";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { selectForm } from "../Selectors/Selectors";
 
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import s from "./HardForm.module.scss";
-import {
-    Link,
-    Route,
-    Routes,
-    useLocation,
-    useNavigate,
-} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import FinalStep from "../Components/HardFormComponent/FinalStep/FinalStep";
-import HorizontalLinearStepper from "../Components/HardFormComponent/Stepper/Stepper";
 import HorizontalLabelPositionBelowStepper from "../Components/HardFormComponent/Stepper/Stepper";
+import { useTranslation } from "react-i18next";
 
 const HardFormPage = () => {
     const initForm = useAppSelector(selectForm);
     const dispatch = useAppDispatch();
     const [form, setForm] = useState(initForm);
+    const { t } = useTranslation();
     const {
         register,
         formState: { errors },
@@ -36,6 +30,7 @@ const HardFormPage = () => {
     useEffect(() => {
         dispatch(editForm(form));
         sessionStorage.setItem("form", JSON.stringify(form));
+        console.log(2);
     }, [form]);
     const onSubmit = (data: any) => {
         console.log(data);
@@ -79,7 +74,7 @@ const HardFormPage = () => {
                                 onClick={() => stepTo(0)}
                             >
                                 <ArrowCircleLeftIcon />
-                                Step back
+                                {t("stepBack")}
                             </button>
 
                             <PersonInfoStep
@@ -101,7 +96,7 @@ const HardFormPage = () => {
                                 onClick={() => stepTo(1)}
                             >
                                 <ArrowCircleLeftIcon />
-                                Step back
+                                {t("stepBack")}
                             </button>
                             <ExtraInformationStep
                                 errors={errors}
@@ -131,4 +126,4 @@ const HardFormPage = () => {
     );
 };
 
-export default HardFormPage;
+export default memo(HardFormPage);

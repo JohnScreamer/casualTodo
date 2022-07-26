@@ -1,10 +1,8 @@
-import React from "react";
 import { useAppSelector } from "../../Hooks/hooks";
 import { selectFirstLoad, toDoWithPagination } from "../../Selectors/Selectors";
 import ToDo from "../ToDo/ToDo";
 import ErrorIcon from "@mui/icons-material/Error";
 import s from "./ToDoList.module.scss";
-import { Skeleton } from "@mui/material";
 import CustomSkeleton from "../CustomSkeleton/CustomSkeleton";
 
 const ToDoList = () => {

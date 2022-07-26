@@ -1,4 +1,5 @@
 import { FC, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import CustomInput from "../CustomInput/CustomInput";
 interface IPersonInfoStep {
@@ -20,6 +21,7 @@ const PersonInfoStep: FC<IPersonInfoStep> = ({
     trigger,
 }) => {
     const isDisabled = !!Object.keys(errors).length;
+    const { t } = useTranslation();
     const isValid = () => {
         return trigger(["login", "password"]);
     };
@@ -41,11 +43,11 @@ const PersonInfoStep: FC<IPersonInfoStep> = ({
                     ...register("firstName", {
                         required: {
                             value: true,
-                            message: "Required field",
+                            message: t("requiredField"),
                         },
                         minLength: {
                             value: 2,
-                            message: "min length 2",
+                            message: `${t("minLength")} 2`,
                         },
                     }),
                 }}
@@ -53,18 +55,18 @@ const PersonInfoStep: FC<IPersonInfoStep> = ({
                 name={"firstName"}
                 setValue={setForm}
                 value={firstName}
-                labelName="First Name"
+                labelName={t("firstName")}
             />
             <CustomInput
                 register={{
                     ...register("lastName", {
                         required: {
                             value: true,
-                            message: "Required field",
+                            message: t("requiredField"),
                         },
                         minLength: {
                             value: 2,
-                            message: "min length 2",
+                            message: `${t("minLength")} 2`,
                         },
                     }),
                 }}
@@ -72,14 +74,14 @@ const PersonInfoStep: FC<IPersonInfoStep> = ({
                 name="lastName"
                 setValue={setForm}
                 value={lastName}
-                labelName="Last Name"
+                labelName={t("lastName")}
             />
             <button
                 disabled={isDisabled}
                 className="nextStepBtn"
                 onClick={validTest}
             >
-                Next step
+                {t("nextStep")}
             </button>
         </div>
     );

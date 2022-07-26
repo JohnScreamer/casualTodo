@@ -1,6 +1,6 @@
 import { Email } from "@mui/icons-material";
 import { FormControlLabel, Checkbox } from "@mui/material";
-import { FC } from "react";
+import { FC, useTransition } from "react";
 import { Controller } from "react-hook-form";
 import { Genders } from "../../../Constants/SelectConstants";
 import { FormType } from "../../../Redux/Slice/HardForm";
@@ -8,6 +8,7 @@ import CustomSelect from "../../CustomSelect/CustomSelect";
 import CustomInput from "../CustomInput/CustomInput";
 import s from "./ExtraInformationStep.module.scss";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
+import { useTranslation } from "react-i18next";
 interface IExtraInfoStep {
     setForm: (state: any) => void;
     email: string;
@@ -32,8 +33,10 @@ const ExtraInformationStep: FC<IExtraInfoStep> = ({
 }) => {
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
     const isDisabled = !!Object.keys(errors).length;
+    const { t } = useTranslation();
     const validTest = async () => {
         const isValid = await trigger(["email", "isAgree", "Gander"]);
+        console.log();
 
         if (isValid) {
             setStep(3);
@@ -50,15 +53,15 @@ const ExtraInformationStep: FC<IExtraInfoStep> = ({
                     ...register("email", {
                         required: {
                             value: true,
-                            message: "Required field",
+                            message: t("requiredField"),
                         },
                         minLength: {
                             value: 6,
-                            message: "min length 6",
+                            message: `${t("minLength")} 6`,
                         },
                         pattern: {
                             value: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/,
-                            message: "Not valid Email",
+                            message: t("notValidEmail"),
                         },
                     }),
                 }}
@@ -66,7 +69,7 @@ const ExtraInformationStep: FC<IExtraInfoStep> = ({
                 name={"email"}
                 setValue={setForm}
                 value={email}
-                labelName="E-MAIL"
+                labelName={t("email")}
             />
 
             <CustomSelect
@@ -78,17 +81,17 @@ const ExtraInformationStep: FC<IExtraInfoStep> = ({
                 setForm={setForm}
             />
             <span style={{ color: "red" }}>
-                {errors.gender && "Required field"}
+                {errors.gender && t("requiredField")}
             </span>
 
             <div>
                 <FormControlLabel
-                    label="I agree to sell my soul !"
+                    label={t("isAgree")}
                     control={
                         <Controller
                             name="isAgree"
                             control={control}
-                            defaultValue={true}
+                            defaultValue={isAgree}
                             rules={{ required: true }}
                             render={({ field: { onChange, value } }) => (
                                 <Checkbox
@@ -122,7 +125,7 @@ const ExtraInformationStep: FC<IExtraInfoStep> = ({
             </div>
             <button className={s.backBtn} onClick={validTest}>
                 <SportsScoreIcon />
-                Finale step
+                {t("finalStep")}
             </button>
         </div>
     );

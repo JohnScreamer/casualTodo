@@ -7,6 +7,7 @@ import { FormType, resetForm } from "../../../Redux/Slice/HardForm";
 import { selectForm } from "../../../Selectors/Selectors";
 //@ts-ignore
 import ReactSpoiler from "react-spoiler";
+import { useTranslation } from "react-i18next";
 type TypeFinalStep = {
     setForm: (data: FormType) => void;
     resetField: any;
@@ -15,6 +16,7 @@ const FinalStep: FC<TypeFinalStep> = ({ setForm, resetField }) => {
     const dispatch = useAppDispatch();
     const form = useAppSelector(selectForm);
     const linkRef = useRef(null);
+    const { t } = useTranslation();
     const handlerResetForm = () => {
         dispatch(resetForm());
         setForm(defaultForm);
@@ -27,39 +29,42 @@ const FinalStep: FC<TypeFinalStep> = ({ setForm, resetField }) => {
         <div>
             <div className={s.formWrapper}>
                 <h4>
-                    Login: <span>{form.login}</span>
+                    {t("login")}: <span>{form.login}</span>
                 </h4>
 
                 <h4>
-                    Password:
+                    {t("password")}:
                     <ReactSpoiler hoverBlur={4}>
                         <span>{form.password}</span>
                     </ReactSpoiler>{" "}
                 </h4>
                 <h4>
-                    First name: <span>{form.firstName}</span>
+                    {t("firstName")}: <span>{form.firstName}</span>
                 </h4>
                 <h4>
-                    Last name: <span>{form.lastName}</span>
+                    {t("lastName")}: <span>{form.lastName}</span>
                 </h4>
 
                 <h4>
-                    E-MAIL: <span>{form.email}</span>
+                    {t("email")}: <span>{form.email}</span>
                 </h4>
                 <h4>
-                    Gender: <span>{form.gender}</span>
+                    {t("gander")}: <span>{form.gender}</span>
                 </h4>
                 <h4>
-                    Is agree: <span>{form.isAgree ? "agree" : "none"}</span>
+                    {t("isAgree")}:{" "}
+                    <span>{form.isAgree ? t("agree") : t("no")}</span>
                 </h4>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit">{t("submit")}</button>
             <Link to={"/form/login"}>
-                <button style={{ background: "blue" }}>Start again</button>
+                <button style={{ background: "blue" }}>
+                    {t("startAgain")}
+                </button>
             </Link>
 
             <button onClick={handlerResetForm} style={{ background: "red" }}>
-                Clear all form
+                {t("clearAllForm")}
             </button>
             <a href={"/form/login"} ref={linkRef} style={{ display: "none" }}>
                 {" "}
